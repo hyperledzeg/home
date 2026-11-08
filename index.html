@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>HyperLed - Privacy Policy</title>
+
+<style>
+
+:root{
+    --bg:#030816;
+    --card:rgba(20,30,55,.72);
+    --border:rgba(255,255,255,.08);
+    --text:#f7f9ff;
+    --muted:#aeb9d4;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at top,#1a2d58 0%,#08111f 35%,#030816 80%);
+    min-height:100vh;
+    line-height:1.7;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,0,102,.10), transparent 30%),
+      radial-gradient(circle at 80% 20%, rgba(255,200,0,.10), transparent 30%),
+      radial-gradient(circle at 50% 80%, rgba(0,200,255,.10), transparent 35%);
+    pointer-events:none;
+}
+
+.container{
+    width:min(1000px,92%);
+    margin:auto;
+}
+
+.hero{
+    text-align:center;
+    padding:60px 20px 40px;
+}
+
+.logo{
+    width:220px;
+    max-width:60vw;
+    display:block;
+    margin:auto;
+
+    filter:
+        drop-shadow(0 0 20px rgba(255,0,120,.5))
+        drop-shadow(0 0 40px rgba(0,180,255,.4))
+        drop-shadow(0 0 70px rgba(255,210,0,.3));
+}
+
+h1{
+    margin-top:25px;
+    font-size:clamp(2.7rem,5vw,4.5rem);
+    font-weight:900;
+    letter-spacing:.5px;
+
+    background:linear-gradient(
+        90deg,
+        #ff006e,
+        #ff5a1f,
+        #ffd000,
+        #59ff67,
+        #22c2ff,
+        #7f5cff
+    );
+    background-size:300% 300%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:rainbow 8s ease infinite;
+}
+
+@keyframes rainbow{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.tagline{
+    font-size:1.15rem;
+    color:#ffffff;
+    margin-top:10px;
+}
+
+.subtitle{
+    color:var(--muted);
+    max-width:600px;
+    margin:15px auto 0;
+}
+
+.card{
+    background:var(--card);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid var(--border);
+    border-radius:28px;
+
+    padding:35px;
+    margin-bottom:35px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.35);
+}
+
+h2{
+    color:#4fdfff;
+    margin-bottom:15px;
+    font-size:2rem;
+}
+
+h3{
+    margin-top:28px;
+    margin-bottom:8px;
+    color:#ffffff;
+    font-size:1.1rem;
+}
+
+p{
+    color:#e5ebff;
+}
+
+.last-update{
+    color:#8fd9ff;
+    margin-bottom:25px;
+}
+
+.notice{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:999px;
+    font-weight:700;
+    background:linear-gradient(90deg,#ff006e,#ff8a00);
+    color:white;
+}
+
+.contact{
+    margin-top:15px;
+    padding:15px;
+    border-radius:14px;
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+a{
+    color:#51dfff;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+footer{
+    text-align:center;
+    color:#8291b4;
+    padding:20px 0 40px;
+    font-size:.9rem;
+}
+
+@media(max-width:700px){
+
+    .card{
+        padding:25px;
+    }
+
+    h2{
+        font-size:1.6rem;
+    }
+
+    h1{
+        font-size:2.8rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="hero">
+
+        <img src="hyperled.png" alt="HyperLed" class="logo">
+
+        <h1>HyperLed</h1>
+
+        <p class="tagline">
+            Télécommande non officielle pour Hyperion
+        </p>
+
+        <p class="subtitle">
+            Contrôle local de votre éclairage d'ambiance,
+            sans publicité, sans traqueur et sans collecte de données.
+        </p>
+
+    </header>
+
+    <section class="card">
+
+        <h2>🇫🇷 Politique de confidentialité</h2>
+
+        <p class="last-update">
+            Dernière mise à jour : 7 novembre 2026
+        </p>
+
+        <h3>1. Qui sommes-nous</h3>
+        <p>
+            HyperLed est une application indépendante permettant
+            de piloter un éclairage d'ambiance géré par le logiciel libre Hyperion.
+            Elle n'est affiliée ni au projet Hyperion ni à ses développeurs.
+        </p>
+
+        <h3>2. Données collectées</h3>
+        <p>
+            <span class="notice">Aucune donnée collectée</span>
+        </p>
+        <p>
+            HyperLed ne collecte, ne stocke sur un serveur et ne partage
+            aucune donnée personnelle. L'application ne contient ni publicité,
+            ni outil d'analyse d'audience, ni traceur.
+        </p>
+
+        <h3>3. Communications réseau</h3>
+        <p>
+            L'application communique uniquement avec le serveur Hyperion
+            indiqué par l'utilisateur sur le réseau local (Wi‑Fi).
+            Aucune donnée n'est envoyée à l'auteur ou à des tiers.
+        </p>
+
+        <h3>4. Microphone</h3>
+        <p>
+            L'accès au microphone est utilisé uniquement pour la fonction
+            « Musique ». Le son est analysé localement sur le téléphone
+            et n'est ni enregistré ni transmis.
+        </p>
+
+        <h3>5. Données stockées sur votre téléphone</h3>
+        <p>
+            Les paramètres de l'application (IP du serveur, jeton API,
+            favoris, scènes et préférences) sont stockés uniquement
+            sur votre appareil.
+        </p>
+
+        <h3>6. Enfants</h3>
+        <p>
+            Aucune donnée n'est collectée, y compris auprès des enfants.
+        </p>
+
+        <h3>7. Sécurité et lumières vives</h3>
+        <p>
+            Certains effets lumineux peuvent produire des flashs et
+            clignotements rapides susceptibles de gêner les personnes
+            sensibles à la lumière. Un réglage « Limiter les flashs »
+            est disponible.
+        </p>
+
+        <h3>8. Modifications</h3>
+        <p>
+            Cette politique peut être mise à jour. La date de révision
+            apparaît en haut de cette page.
+        </p>
+
+        <h3>9. Contact</h3>
+
+        <div class="contact">
+            📧 <a href="mailto:hyperled.zeg@gmail.com">
+            hyperled.zeg@gmail.com
+            </a>
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <h2>🇬🇧 Privacy Policy</h2>
+
+        <p class="last-update">
+            Last updated: 7 November 2026
+        </p>
+
+        <h3>1. About</h3>
+        <p>
+            HyperLed is an independent application used to control
+            ambient lighting managed by Hyperion.
+        </p>
+
+        <h3>2. Data collected</h3>
+        <p>
+            <span class="notice">No data collected</span>
+        </p>
+
+        <p>
+            HyperLed does not collect, store or share any personal data.
+            The app contains no advertising, analytics or trackers.
+        </p>
+
+        <h3>3. Network communication</h3>
+        <p>
+            The app communicates only with the Hyperion server specified by the user on the local network.
+        </p>
+
+        <h3>4. Microphone</h3>
+        <p>
+            Microphone access is requested only for the Music feature.
+            Audio is processed live on the device and is never recorded or transmitted.
+        </p>
+
+        <h3>5. Data stored on your phone</h3>
+        <p>
+            Your settings are stored only on your device and are deleted
+            when the app is removed or its data is cleared.
+        </p>
+
+        <h3>6. Children</h3>
+        <p>
+            No data is collected, including from children.
+        </p>
+
+        <h3>7. Safety and bright lights</h3>
+        <p>
+            Some effects may produce flashes and fast blinking that can affect people sensitive to light.
+            A "Limit flashes" option is available.
+        </p>
+
+        <h3>8. Changes</h3>
+        <p>
+            This policy may be updated from time to time.
+        </p>
+
+        <h3>9. Contact</h3>
+
+        <div class="contact">
+            📧 <a href="mailto:hyperled.zeg@gmail.com">
+            hyperled.zeg@gmail.com
+            </a>
+        </div>
+
+    </section>
+
+    <footer>
+        HyperLed © ZEG • Unofficial Hyperion Remote Control
+    </footer>
+
+</div>
+
+</body>
+</html>
