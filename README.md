@@ -19,17 +19,23 @@ Télécommande non officielle pour Hyperion — contrôle local de votre éclair
 
 ---
 
+## ⚠️ Avertissement / Disclaimer
+
+**HyperLed est un projet indépendant et n'a AUCUN lien officiel avec le projet Hyperion ou ses développeurs.**
+
+Si les créateurs d'Hyperion souhaitent que ce projet soit retiré, je coopérerai immédiatement et supprimerai ce dépôt sur simple demande de leur part.
+
+*(English below)*
+
+**HyperLed is an independent project and has NO official link with the Hyperion project or its developers.**
+If the Hyperion creators wish for this project to be removed, I will cooperate immediately and delete this repository upon their request.
+
+---
+
 ## 🔒 Confidentialité
 
 Aucune donnée n'est collectée.  
 ➡️ [Politique de confidentialité](https://hyperledzeg.github.io/home/)
-
----
-
-## ℹ️ À propos
-
-HyperLed est une application indépendante permettant de piloter un éclairage d'ambiance géré par le logiciel libre [Hyperion](https://github.com/hyperion-project/hyperion.ng).  
-Elle n'est affiliée ni au projet Hyperion ni à ses développeurs.
 
 ---
 
