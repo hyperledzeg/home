@@ -32,10 +32,10 @@ If the Hyperion creators wish for this project to be removed, I will cooperate i
 
 ---
 
-## 🔒 Confidentialité
+## 🔒 Confidentialité / Privacy
 
-Aucune donnée n'est collectée.  
-➡️ [Politique de confidentialité](https://hyperledzeg.github.io/home/)
+Aucune donnée n'est collectée. / No data is collected.  
+➡️ [Politique de confidentialité (FR/EN)](https://hyperledzeg.github.io/home/privacy.html)
 
 ---
 
@@ -52,4 +52,4 @@ Unofficial remote control for Hyperion — local ambient lighting control.
 **Free • No ads • No trackers • No data collection**
 
 ➡️ **[Latest release (APK)](https://github.com/hyperledzeg/home/releases/latest)**  
-➡️ **[Privacy Policy](https://hyperledzeg.github.io/home/)**
+➡️ **[Privacy Policy](https://hyperledzeg.github.io/home/privacy.html)**
