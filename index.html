@@ -3,364 +3,638 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>HyperLed - Privacy Policy</title>
-
 <style>
+  :root {
+    --bg: #000000;
+    --card: rgba(12, 18, 34, 0.78);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #f7f9ff;
+    --muted: #aeb9d4;
+  }
 
-:root{
-    --bg:#030816;
-    --card:rgba(20,30,55,.72);
-    --border:rgba(255,255,255,.08);
-    --text:#f7f9ff;
-    --muted:#aeb9d4;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text);
+    background: #000000;
+    min-height: 100vh;
+    line-height: 1.7;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-body{
-    font-family:'Segoe UI',Arial,sans-serif;
-    color:var(--text);
-    background:
-        radial-gradient(circle at top,#1a2d58 0%,#08111f 35%,#030816 80%);
-    min-height:100vh;
-    line-height:1.7;
-}
+  /* Fond noir pur, avec une très légère vignette pour donner du relief */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(255,0,102,.10), transparent 30%),
-      radial-gradient(circle at 80% 20%, rgba(255,200,0,.10), transparent 30%),
-      radial-gradient(circle at 50% 80%, rgba(0,200,255,.10), transparent 35%);
-    pointer-events:none;
-}
+  .container {
+    width: min(1000px, 92%);
+    margin: auto;
+    position: relative;
+    z-index: 2;
+  }
 
-.container{
-    width:min(1000px,92%);
-    margin:auto;
-}
+  /* ============================================
+     BANDEAU LED AMBILIGHT - FOND NOIR + LED LUMINEUSES
+     ============================================ */
+  .ambilight {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
 
-.hero{
-    text-align:center;
-    padding:60px 20px 40px;
-}
+  .strip {
+    position: absolute;
+    display: flex;
+    gap: 0;
+  }
 
-.logo{
-    width:220px;
-    max-width:60vw;
-    display:block;
-    margin:auto;
+  .strip-top    { top: 0; left: 0; right: 0; height: 22px; flex-direction: row; }
+  .strip-bottom { bottom: 0; left: 0; right: 0; height: 22px; flex-direction: row; }
+  .strip-left   { left: 0; top: 0; bottom: 0; width: 22px; flex-direction: column; }
+  .strip-right  { right: 0; top: 0; bottom: 0; width: 22px; flex-direction: column; }
 
-    filter:
-        drop-shadow(0 0 20px rgba(255,0,120,.5))
-        drop-shadow(0 0 40px rgba(0,180,255,.4))
-        drop-shadow(0 0 70px rgba(255,210,0,.3));
-}
-
-h1{
-    margin-top:25px;
-    font-size:clamp(2.7rem,5vw,4.5rem);
-    font-weight:900;
-    letter-spacing:.5px;
-
-    background:linear-gradient(
-        90deg,
-        #ff006e,
-        #ff5a1f,
-        #ffd000,
-        #59ff67,
-        #22c2ff,
-        #7f5cff
-    );
-    background-size:300% 300%;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-
-    animation:rainbow 8s ease infinite;
-}
-
-@keyframes rainbow{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-
-.tagline{
-    font-size:1.15rem;
-    color:#ffffff;
-    margin-top:10px;
-}
-
-.subtitle{
-    color:var(--muted);
-    max-width:600px;
-    margin:15px auto 0;
-}
-
-.card{
-    background:var(--card);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-
-    border:1px solid var(--border);
-    border-radius:28px;
-
-    padding:35px;
-    margin-bottom:35px;
-
+  .led {
+    flex: 1;
+    position: relative;
+    background: currentColor;
+    opacity: 0.12;
+    border-radius: 3px;
+    /* Coeur lumineux de la LED */
     box-shadow:
-        0 15px 40px rgba(0,0,0,.35);
-}
+      0 0 4px 1px currentColor,
+      0 0 10px 2px currentColor;
+  }
 
-h2{
-    color:#4fdfff;
-    margin-bottom:15px;
-    font-size:2rem;
-}
+  /* Halo externe très large pour effet "bloom" */
+  .led::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    background: currentColor;
+    filter: blur(14px);
+    opacity: 0;
+    z-index: -1;
+  }
 
-h3{
-    margin-top:28px;
-    margin-bottom:8px;
-    color:#ffffff;
-    font-size:1.1rem;
-}
+  /* Halo moyen intermédiaire */
+  .led::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: currentColor;
+    filter: blur(5px);
+    opacity: 0;
+  }
 
-p{
-    color:#e5ebff;
-}
+  /* ============================================
+     ANIMATIONS : flash rapide + aléatoire,
+     avec renforcement lumineux (bloom en cascade)
+     ============================================ */
+  @keyframes flashFast {
+    0%   { opacity: 0.08; transform: scale(0.4); }
+    4%   { opacity: 1;    transform: scale(1.8); }
+    8%   { opacity: 0.95; transform: scale(1.4); }
+    14%  { opacity: 0.18; transform: scale(0.5); }
+    18%  { opacity: 1;    transform: scale(1.7); }
+    24%  { opacity: 0.12; transform: scale(0.5); }
+    100% { opacity: 0.08; transform: scale(0.4); }
+  }
 
-.last-update{
-    color:#8fd9ff;
-    margin-bottom:25px;
-}
+  @keyframes flashFastAlt {
+    0%   { opacity: 0.08; transform: scale(0.4); }
+    6%   { opacity: 1;    transform: scale(1.7); }
+    12%  { opacity: 0.22; transform: scale(0.6); }
+    16%  { opacity: 0.95; transform: scale(1.5); }
+    22%  { opacity: 1;    transform: scale(1.8); }
+    30%  { opacity: 0.12; transform: scale(0.5); }
+    100% { opacity: 0.08; transform: scale(0.4); }
+  }
 
-.notice{
-    display:inline-block;
-    padding:4px 12px;
-    border-radius:999px;
-    font-weight:700;
-    background:linear-gradient(90deg,#ff006e,#ff8a00);
-    color:white;
-}
+  @keyframes hue {
+    0%   { filter: hue-rotate(0deg)   saturate(1.6) brightness(1.15); }
+    100% { filter: hue-rotate(360deg) saturate(1.6) brightness(1.15); }
+  }
 
-.contact{
-    margin-top:15px;
-    padding:15px;
-    border-radius:14px;
+  /* Halos : montent avec le flash, plus longs et plus intenses */
+  @keyframes haloOuter {
+    0%, 24%, 100% { opacity: 0; }
+    4%, 8%        { opacity: 0.95; }
+    18%           { opacity: 0.85; }
+  }
 
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.06);
-}
+  @keyframes haloInner {
+    0%, 24%, 100% { opacity: 0; }
+    4%, 8%        { opacity: 1; }
+    18%           { opacity: 0.9; }
+  }
 
-a{
-    color:#51dfff;
-    text-decoration:none;
-}
+  .led {
+    animation:
+      flashFast 1.2s linear infinite,
+      hue 5s linear infinite;
+  }
 
-a:hover{
-    text-decoration:underline;
-}
+  .led::before {
+    animation: haloOuter 1.2s ease-in-out infinite;
+    animation-delay: inherit;
+  }
 
-footer{
-    text-align:center;
-    color:#8291b4;
-    padding:20px 0 40px;
-    font-size:.9rem;
-}
+  .led::after {
+    animation: haloInner 1.2s ease-in-out infinite;
+    animation-delay: inherit;
+  }
 
-@media(max-width:700px){
+  /* Durées ultra-variées -> allumages en paquets aléatoires */
+  .led:nth-child(1)  { animation-duration: 1.05s, 5.2s; animation-delay: -0.00s, -0.10s; }
+  .led:nth-child(2)  { animation-duration: 0.92s, 4.7s; animation-delay: -0.37s, -0.55s; }
+  .led:nth-child(3)  { animation-duration: 1.33s, 5.9s; animation-delay: -0.81s, -0.90s; }
+  .led:nth-child(4)  { animation-duration: 0.78s, 4.2s; animation-delay: -0.12s, -0.30s; }
+  .led:nth-child(5)  { animation-duration: 1.18s, 5.4s; animation-delay: -0.66s, -0.75s; }
+  .led:nth-child(6)  { animation-duration: 0.88s, 4.5s; animation-delay: -0.29s, -0.45s; }
+  .led:nth-child(7)  { animation-duration: 1.42s, 6.1s; animation-delay: -1.05s, -1.20s; }
+  .led:nth-child(8)  { animation-duration: 1.10s, 5.0s; animation-delay: -0.51s, -0.60s; }
+  .led:nth-child(9)  { animation-duration: 0.70s, 3.8s; animation-delay: -0.18s, -0.25s; }
+  .led:nth-child(10) { animation-duration: 1.27s, 5.6s; animation-delay: -0.93s, -1.05s; }
+  .led:nth-child(11) { animation-duration: 0.98s, 4.9s; animation-delay: -0.44s, -0.50s; }
+  .led:nth-child(12) { animation-duration: 1.15s, 5.3s; animation-delay: -0.72s, -0.85s; }
+  .led:nth-child(13) { animation-duration: 0.84s, 4.4s; animation-delay: -0.08s, -0.20s; }
+  .led:nth-child(14) { animation-duration: 1.38s, 6.0s; animation-delay: -1.12s, -1.30s; }
+  .led:nth-child(15) { animation-duration: 1.02s, 5.1s; animation-delay: -0.33s, -0.40s; }
+  .led:nth-child(16) { animation-duration: 0.75s, 4.0s; animation-delay: -0.58s, -0.65s; }
+  .led:nth-child(17) { animation-duration: 1.22s, 5.5s; animation-delay: -0.87s, -0.95s; }
+  .led:nth-child(18) { animation-duration: 0.95s, 4.8s; animation-delay: -0.22s, -0.35s; }
+  .led:nth-child(19) { animation-duration: 1.30s, 5.8s; animation-delay: -1.00s, -1.15s; }
+  .led:nth-child(20) { animation-duration: 0.81s, 4.3s; animation-delay: -0.15s, -0.28s; }
+  .led:nth-child(21) { animation-duration: 1.12s, 5.2s; animation-delay: -0.63s, -0.70s; }
+  .led:nth-child(22) { animation-duration: 0.90s, 4.6s; animation-delay: -0.40s, -0.48s; }
+  .led:nth-child(23) { animation-duration: 1.45s, 6.2s; animation-delay: -1.18s, -1.35s; }
+  .led:nth-child(24) { animation-duration: 1.06s, 5.0s; animation-delay: -0.48s, -0.58s; }
 
-    .card{
-        padding:25px;
+  /* Les pseudo-éléments héritent des durées via animation-duration explicite */
+  .led:nth-child(1)::before,  .led:nth-child(1)::after  { animation-duration: 1.05s; animation-delay: -0.00s; }
+  .led:nth-child(2)::before,  .led:nth-child(2)::after  { animation-duration: 0.92s; animation-delay: -0.37s; }
+  .led:nth-child(3)::before,  .led:nth-child(3)::after  { animation-duration: 1.33s; animation-delay: -0.81s; }
+  .led:nth-child(4)::before,  .led:nth-child(4)::after  { animation-duration: 0.78s; animation-delay: -0.12s; }
+  .led:nth-child(5)::before,  .led:nth-child(5)::after  { animation-duration: 1.18s; animation-delay: -0.66s; }
+  .led:nth-child(6)::before,  .led:nth-child(6)::after  { animation-duration: 0.88s; animation-delay: -0.29s; }
+  .led:nth-child(7)::before,  .led:nth-child(7)::after  { animation-duration: 1.42s; animation-delay: -1.05s; }
+  .led:nth-child(8)::before,  .led:nth-child(8)::after  { animation-duration: 1.10s; animation-delay: -0.51s; }
+  .led:nth-child(9)::before,  .led:nth-child(9)::after  { animation-duration: 0.70s; animation-delay: -0.18s; }
+  .led:nth-child(10)::before, .led:nth-child(10)::after { animation-duration: 1.27s; animation-delay: -0.93s; }
+  .led:nth-child(11)::before, .led:nth-child(11)::after { animation-duration: 0.98s; animation-delay: -0.44s; }
+  .led:nth-child(12)::before, .led:nth-child(12)::after { animation-duration: 1.15s; animation-delay: -0.72s; }
+  .led:nth-child(13)::before, .led:nth-child(13)::after { animation-duration: 0.84s; animation-delay: -0.08s; }
+  .led:nth-child(14)::before, .led:nth-child(14)::after { animation-duration: 1.38s; animation-delay: -1.12s; }
+  .led:nth-child(15)::before, .led:nth-child(15)::after { animation-duration: 1.02s; animation-delay: -0.33s; }
+  .led:nth-child(16)::before, .led:nth-child(16)::after { animation-duration: 0.75s; animation-delay: -0.58s; }
+  .led:nth-child(17)::before, .led:nth-child(17)::after { animation-duration: 1.22s; animation-delay: -0.87s; }
+  .led:nth-child(18)::before, .led:nth-child(18)::after { animation-duration: 0.95s; animation-delay: -0.22s; }
+  .led:nth-child(19)::before, .led:nth-child(19)::after { animation-duration: 1.30s; animation-delay: -1.00s; }
+  .led:nth-child(20)::before, .led:nth-child(20)::after { animation-duration: 0.81s; animation-delay: -0.15s; }
+  .led:nth-child(21)::before, .led:nth-child(21)::after { animation-duration: 1.12s; animation-delay: -0.63s; }
+  .led:nth-child(22)::before, .led:nth-child(22)::after { animation-duration: 0.90s; animation-delay: -0.40s; }
+  .led:nth-child(23)::before, .led:nth-child(23)::after { animation-duration: 1.45s; animation-delay: -1.18s; }
+  .led:nth-child(24)::before, .led:nth-child(24)::after { animation-duration: 1.06s; animation-delay: -0.48s; }
+
+  /* Certaines LED utilisent l'animation alternative */
+  .strip-top .led:nth-child(3n),
+  .strip-bottom .led:nth-child(3n+1),
+  .strip-left .led:nth-child(4n),
+  .strip-right .led:nth-child(4n+2) {
+    animation-name: flashFastAlt, hue;
+  }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+  }
+
+  .logo {
+    width: 220px;
+    max-width: 60vw;
+    display: block;
+    margin: auto;
+    filter:
+      drop-shadow(0 0 20px rgba(255, 0, 120, 0.6))
+      drop-shadow(0 0 40px rgba(0, 180, 255, 0.5))
+      drop-shadow(0 0 70px rgba(255, 210, 0, 0.4));
+    transition: filter 0.4s ease;
+  }
+
+  .logo:hover {
+    filter:
+      drop-shadow(0 0 30px rgba(255, 0, 120, 0.9))
+      drop-shadow(0 0 60px rgba(0, 180, 255, 0.7))
+      drop-shadow(0 0 100px rgba(255, 210, 0, 0.6));
+  }
+
+  h1 {
+    margin-top: 25px;
+    font-size: clamp(2.7rem, 5vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #ff006e, #ff5a1f, #ffd000, #59ff67, #22c2ff, #7f5cff);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 8s ease infinite;
+    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.15));
+  }
+
+  @keyframes rainbow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-top: 10px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 15px auto 0;
+  }
+
+  /* ============================================
+     CARTES
+     ============================================ */
+  .card {
+    background: var(--card);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 35px;
+    margin-bottom: 35px;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 15px 45px rgba(0, 0, 0, 0.7),
+      0 0 60px rgba(30, 80, 200, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before,
+  .card::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .card::before { top: -40px; left: -40px; background: #ff006e; }
+  .card::after  { bottom: -40px; right: -40px; background: #22c2ff; }
+
+  h2 {
+    color: #4fdfff;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    text-shadow: 0 0 18px rgba(79, 223, 255, 0.35);
+  }
+
+  h3 {
+    margin-top: 28px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 1.1rem;
+  }
+
+  p { color: #e5ebff; }
+
+  .last-update {
+    color: #8fd9ff;
+    margin-bottom: 25px;
+  }
+
+  .notice {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #ff006e, #ff8a00);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+    animation: noticeGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes noticeGlow {
+    0%   { box-shadow: 0 0 10px rgba(255, 0, 110, 0.4); }
+    100% { box-shadow: 0 0 30px rgba(255, 138, 0, 0.9); }
+  }
+
+  .contact {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .contact:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  a {
+    color: #51dfff;
+    text-decoration: none;
+    transition: color 0.2s, text-shadow 0.2s;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 14px rgba(81, 223, 255, 0.8);
+  }
+
+  footer {
+    text-align: center;
+    color: #8291b4;
+    padding: 20px 0 40px;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 700px) {
+    .card { padding: 25px; }
+    h2 { font-size: 1.6rem; }
+    h1 { font-size: 2.8rem; }
+    .strip-top, .strip-bottom { height: 14px; }
+    .strip-left, .strip-right { width: 14px; }
+    .led::before { inset: -8px; filter: blur(9px); }
+    .led::after  { inset: -3px; filter: blur(3px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .led, .led::before, .led::after, h1, .notice {
+      animation: none !important;
     }
-
-    h2{
-        font-size:1.6rem;
-    }
-
-    h1{
-        font-size:2.8rem;
-    }
-}
-
+    .led { opacity: 0.4; }
+    .led::before { opacity: 0.3; }
+    .led::after { opacity: 0.4; }
+  }
 </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="ambilight" aria-hidden="true">
 
+    <!-- GROUPE HAUT : 24 LED -->
+    <div class="strip strip-top">
+      <span class="led" style="color:#ff006e;"></span>
+      <span class="led" style="color:#ff1a5e;"></span>
+      <span class="led" style="color:#ff3355;"></span>
+      <span class="led" style="color:#ff4d4d;"></span>
+      <span class="led" style="color:#ff6644;"></span>
+      <span class="led" style="color:#ff8033;"></span>
+      <span class="led" style="color:#ff9922;"></span>
+      <span class="led" style="color:#ffb311;"></span>
+      <span class="led" style="color:#ffcc00;"></span>
+      <span class="led" style="color:#e6e600;"></span>
+      <span class="led" style="color:#ccff00;"></span>
+      <span class="led" style="color:#99ff00;"></span>
+      <span class="led" style="color:#66ff33;"></span>
+      <span class="led" style="color:#33ff66;"></span>
+      <span class="led" style="color:#00ff99;"></span>
+      <span class="led" style="color:#00ffcc;"></span>
+      <span class="led" style="color:#00e6ff;"></span>
+      <span class="led" style="color:#00ccff;"></span>
+      <span class="led" style="color:#0099ff;"></span>
+      <span class="led" style="color:#3366ff;"></span>
+      <span class="led" style="color:#6633ff;"></span>
+      <span class="led" style="color:#9933ff;"></span>
+      <span class="led" style="color:#cc33ff;"></span>
+      <span class="led" style="color:#ff33cc;"></span>
+    </div>
+
+    <!-- GROUPE DROIT : 16 LED -->
+    <div class="strip strip-right">
+      <span class="led" style="color:#ff33cc;"></span>
+      <span class="led" style="color:#cc33ff;"></span>
+      <span class="led" style="color:#9933ff;"></span>
+      <span class="led" style="color:#6633ff;"></span>
+      <span class="led" style="color:#3366ff;"></span>
+      <span class="led" style="color:#0099ff;"></span>
+      <span class="led" style="color:#00ccff;"></span>
+      <span class="led" style="color:#00e6ff;"></span>
+      <span class="led" style="color:#00ffcc;"></span>
+      <span class="led" style="color:#00ff99;"></span>
+      <span class="led" style="color:#33ff66;"></span>
+      <span class="led" style="color:#66ff33;"></span>
+      <span class="led" style="color:#99ff00;"></span>
+      <span class="led" style="color:#ccff00;"></span>
+      <span class="led" style="color:#e6e600;"></span>
+      <span class="led" style="color:#ffcc00;"></span>
+    </div>
+
+    <!-- GROUPE BAS : 24 LED -->
+    <div class="strip strip-bottom">
+      <span class="led" style="color:#ff006e;"></span>
+      <span class="led" style="color:#ff1a5e;"></span>
+      <span class="led" style="color:#ff3355;"></span>
+      <span class="led" style="color:#ff4d4d;"></span>
+      <span class="led" style="color:#ff6644;"></span>
+      <span class="led" style="color:#ff8033;"></span>
+      <span class="led" style="color:#ff9922;"></span>
+      <span class="led" style="color:#ffb311;"></span>
+      <span class="led" style="color:#ffcc00;"></span>
+      <span class="led" style="color:#e6e600;"></span>
+      <span class="led" style="color:#ccff00;"></span>
+      <span class="led" style="color:#99ff00;"></span>
+      <span class="led" style="color:#66ff33;"></span>
+      <span class="led" style="color:#33ff66;"></span>
+      <span class="led" style="color:#00ff99;"></span>
+      <span class="led" style="color:#00ffcc;"></span>
+      <span class="led" style="color:#00e6ff;"></span>
+      <span class="led" style="color:#00ccff;"></span>
+      <span class="led" style="color:#0099ff;"></span>
+      <span class="led" style="color:#3366ff;"></span>
+      <span class="led" style="color:#6633ff;"></span>
+      <span class="led" style="color:#9933ff;"></span>
+      <span class="led" style="color:#cc33ff;"></span>
+      <span class="led" style="color:#ff33cc;"></span>
+    </div>
+
+    <!-- GROUPE GAUCHE : 16 LED -->
+    <div class="strip strip-left">
+      <span class="led" style="color:#ffcc00;"></span>
+      <span class="led" style="color:#e6e600;"></span>
+      <span class="led" style="color:#ccff00;"></span>
+      <span class="led" style="color:#99ff00;"></span>
+      <span class="led" style="color:#66ff33;"></span>
+      <span class="led" style="color:#33ff66;"></span>
+      <span class="led" style="color:#00ff99;"></span>
+      <span class="led" style="color:#00ffcc;"></span>
+      <span class="led" style="color:#00e6ff;"></span>
+      <span class="led" style="color:#00ccff;"></span>
+      <span class="led" style="color:#0099ff;"></span>
+      <span class="led" style="color:#3366ff;"></span>
+      <span class="led" style="color:#6633ff;"></span>
+      <span class="led" style="color:#9933ff;"></span>
+      <span class="led" style="color:#cc33ff;"></span>
+      <span class="led" style="color:#ff33cc;"></span>
+    </div>
+
+  </div>
+
+  <div class="container">
     <header class="hero">
-
-        <img src="hyperled.png" alt="HyperLed" class="logo">
-
-        <h1>HyperLed</h1>
-
-        <p class="tagline">
-            Télécommande non officielle pour Hyperion
-        </p>
-
-        <p class="subtitle">
-            Contrôle local de votre éclairage d'ambiance,
-            sans publicité, sans traqueur et sans collecte de données.
-        </p>
-
+      <img src="hyperled.png" alt="HyperLed" class="logo">
+      <h1>HyperLed</h1>
+      <p class="tagline">Télécommande non officielle pour Hyperion</p>
+      <p class="subtitle">
+        Contrôle local de votre éclairage d'ambiance,
+        sans publicité, sans traqueur et sans collecte de données.
+      </p>
     </header>
 
     <section class="card">
+      <h2>🇫🇷 Politique de confidentialité</h2>
+      <p class="last-update">Dernière mise à jour : 7 novembre 2026</p>
 
-        <h2>🇫🇷 Politique de confidentialité</h2>
+      <h3>1. Qui sommes-nous</h3>
+      <p>
+        HyperLed est une application indépendante permettant
+        de piloter un éclairage d'ambiance géré par le logiciel libre Hyperion.
+        Elle n'est affiliée ni au projet Hyperion ni à ses développeurs.
+      </p>
 
-        <p class="last-update">
-            Dernière mise à jour : 7 novembre 2026
-        </p>
+      <h3>2. Données collectées</h3>
+      <p><span class="notice">Aucune donnée collectée</span></p>
+      <p>
+        HyperLed ne collecte, ne stocke sur un serveur et ne partage
+        aucune donnée personnelle. L'application ne contient ni publicité,
+        ni outil d'analyse d'audience, ni traceur.
+      </p>
 
-        <h3>1. Qui sommes-nous</h3>
-        <p>
-            HyperLed est une application indépendante permettant
-            de piloter un éclairage d'ambiance géré par le logiciel libre Hyperion.
-            Elle n'est affiliée ni au projet Hyperion ni à ses développeurs.
-        </p>
+      <h3>3. Communications réseau</h3>
+      <p>
+        L'application communique uniquement avec le serveur Hyperion
+        indiqué par l'utilisateur sur le réseau local (Wi‑Fi).
+        Aucune donnée n'est envoyée à l'auteur ou à des tiers.
+      </p>
 
-        <h3>2. Données collectées</h3>
-        <p>
-            <span class="notice">Aucune donnée collectée</span>
-        </p>
-        <p>
-            HyperLed ne collecte, ne stocke sur un serveur et ne partage
-            aucune donnée personnelle. L'application ne contient ni publicité,
-            ni outil d'analyse d'audience, ni traceur.
-        </p>
+      <h3>4. Microphone</h3>
+      <p>
+        L'accès au microphone est utilisé uniquement pour la fonction
+        « Musique ». Le son est analysé localement sur le téléphone
+        et n'est ni enregistré ni transmis.
+      </p>
 
-        <h3>3. Communications réseau</h3>
-        <p>
-            L'application communique uniquement avec le serveur Hyperion
-            indiqué par l'utilisateur sur le réseau local (Wi‑Fi).
-            Aucune donnée n'est envoyée à l'auteur ou à des tiers.
-        </p>
+      <h3>5. Données stockées sur votre téléphone</h3>
+      <p>
+        Les paramètres de l'application (IP du serveur, jeton API,
+        favoris, scènes et préférences) sont stockés uniquement
+        sur votre appareil.
+      </p>
 
-        <h3>4. Microphone</h3>
-        <p>
-            L'accès au microphone est utilisé uniquement pour la fonction
-            « Musique ». Le son est analysé localement sur le téléphone
-            et n'est ni enregistré ni transmis.
-        </p>
+      <h3>6. Enfants</h3>
+      <p>Aucune donnée n'est collectée, y compris auprès des enfants.</p>
 
-        <h3>5. Données stockées sur votre téléphone</h3>
-        <p>
-            Les paramètres de l'application (IP du serveur, jeton API,
-            favoris, scènes et préférences) sont stockés uniquement
-            sur votre appareil.
-        </p>
+      <h3>7. Sécurité et lumières vives</h3>
+      <p>
+        Certains effets lumineux peuvent produire des flashs et
+        clignotements rapides susceptibles de gêner les personnes
+        sensibles à la lumière. Un réglage « Limiter les flashs »
+        est disponible.
+      </p>
 
-        <h3>6. Enfants</h3>
-        <p>
-            Aucune donnée n'est collectée, y compris auprès des enfants.
-        </p>
+      <h3>8. Modifications</h3>
+      <p>
+        Cette politique peut être mise à jour. La date de révision
+        apparaît en haut de cette page.
+      </p>
 
-        <h3>7. Sécurité et lumières vives</h3>
-        <p>
-            Certains effets lumineux peuvent produire des flashs et
-            clignotements rapides susceptibles de gêner les personnes
-            sensibles à la lumière. Un réglage « Limiter les flashs »
-            est disponible.
-        </p>
-
-        <h3>8. Modifications</h3>
-        <p>
-            Cette politique peut être mise à jour. La date de révision
-            apparaît en haut de cette page.
-        </p>
-
-        <h3>9. Contact</h3>
-
-        <div class="contact">
-            📧 <a href="mailto:hyperled.zeg@gmail.com">
-            hyperled.zeg@gmail.com
-            </a>
-        </div>
-
+      <h3>9. Contact</h3>
+      <div class="contact">
+        📧 <a href="mailto:hyperled.zeg@gmail.com">hyperled.zeg@gmail.com</a>
+      </div>
     </section>
 
     <section class="card">
+      <h2>🇬🇧 Privacy Policy</h2>
+      <p class="last-update">Last updated: 7 November 2026</p>
 
-        <h2>🇬🇧 Privacy Policy</h2>
+      <h3>1. About</h3>
+      <p>
+        HyperLed is an independent application used to control
+        ambient lighting managed by Hyperion.
+      </p>
 
-        <p class="last-update">
-            Last updated: 7 November 2026
-        </p>
+      <h3>2. Data collected</h3>
+      <p><span class="notice">No data collected</span></p>
+      <p>
+        HyperLed does not collect, store or share any personal data.
+        The app contains no advertising, analytics or trackers.
+      </p>
 
-        <h3>1. About</h3>
-        <p>
-            HyperLed is an independent application used to control
-            ambient lighting managed by Hyperion.
-        </p>
+      <h3>3. Network communication</h3>
+      <p>
+        The app communicates only with the Hyperion server specified by the user on the local network.
+      </p>
 
-        <h3>2. Data collected</h3>
-        <p>
-            <span class="notice">No data collected</span>
-        </p>
+      <h3>4. Microphone</h3>
+      <p>
+        Microphone access is requested only for the Music feature.
+        Audio is processed live on the device and is never recorded or transmitted.
+      </p>
 
-        <p>
-            HyperLed does not collect, store or share any personal data.
-            The app contains no advertising, analytics or trackers.
-        </p>
+      <h3>5. Data stored on your phone</h3>
+      <p>
+        Your settings are stored only on your device and are deleted
+        when the app is removed or its data is cleared.
+      </p>
 
-        <h3>3. Network communication</h3>
-        <p>
-            The app communicates only with the Hyperion server specified by the user on the local network.
-        </p>
+      <h3>6. Children</h3>
+      <p>No data is collected, including from children.</p>
 
-        <h3>4. Microphone</h3>
-        <p>
-            Microphone access is requested only for the Music feature.
-            Audio is processed live on the device and is never recorded or transmitted.
-        </p>
+      <h3>7. Safety and bright lights</h3>
+      <p>
+        Some effects may produce flashes and fast blinking that can affect people sensitive to light.
+        A "Limit flashes" option is available.
+      </p>
 
-        <h3>5. Data stored on your phone</h3>
-        <p>
-            Your settings are stored only on your device and are deleted
-            when the app is removed or its data is cleared.
-        </p>
+      <h3>8. Changes</h3>
+      <p>This policy may be updated from time to time.</p>
 
-        <h3>6. Children</h3>
-        <p>
-            No data is collected, including from children.
-        </p>
-
-        <h3>7. Safety and bright lights</h3>
-        <p>
-            Some effects may produce flashes and fast blinking that can affect people sensitive to light.
-            A "Limit flashes" option is available.
-        </p>
-
-        <h3>8. Changes</h3>
-        <p>
-            This policy may be updated from time to time.
-        </p>
-
-        <h3>9. Contact</h3>
-
-        <div class="contact">
-            📧 <a href="mailto:hyperled.zeg@gmail.com">
-            hyperled.zeg@gmail.com
-            </a>
-        </div>
-
+      <h3>9. Contact</h3>
+      <div class="contact">
+        📧 <a href="mailto:hyperled.zeg@gmail.com">hyperled.zeg@gmail.com</a>
+      </div>
     </section>
 
     <footer>
-        HyperLed © ZEG • Unofficial Hyperion Remote Control
+      HyperLed © ZEG • Unofficial Hyperion Remote Control
     </footer>
-
-</div>
+  </div>
 
 </body>
 </html>
